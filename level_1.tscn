@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://g13havgst8mf"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_478r0"]
+[ext_resource type="Texture2D" uid="uid://cldg5k2lnb7i" path="res://purple.png" id="1_ddvpf"]
+[ext_resource type="PackedScene" uid="uid://ba1gni0qei14e" path="res://player.tscn" id="2_cm2fy"]
+[ext_resource type="PackedScene" uid="uid://dvvr0w56u7wv0" path="res://maze.tscn" id="4_gfbay"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_svvva"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_opiyp"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_478r0")
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ddvpf")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 519.0
+offset_top = 212.0
+offset_right = 596.0
+offset_bottom = 260.0
+text = "Start"
+label_settings = SubResource("LabelSettings_svvva")
+
+[node name="TutorialText" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 24.0
+offset_top = 173.0
+offset_right = 412.0
+offset_bottom = 277.0
+text = "Rules:
+- Use WASD or Arrow keys to move
+-Make it from Start to End
+- You will restart if you bump the side of the  maze"
+label_settings = SubResource("LabelSettings_opiyp")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+z_index = -5
+offset_left = 769.0
+offset_top = 146.0
+offset_right = 846.0
+offset_bottom = 194.0
+text = "End"
+label_settings = SubResource("LabelSettings_svvva")
+
+[node name="Player" parent="." instance=ExtResource("2_cm2fy")]
+position = Vector2(561, 296)
+
+[node name="Maze" parent="." instance=ExtResource("4_gfbay")]
+z_index = -10
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
